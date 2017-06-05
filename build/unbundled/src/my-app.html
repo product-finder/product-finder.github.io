@@ -1,0 +1,168 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/app-datepicker/app-datepicker-dialog.html">
+<link rel="import" href="../bower_components/compound-timepicker/compound-timepicker-dialog.html">
+<link rel="import" href="../bower_components/file-upload/file-upload.html">
+<link rel="import" href="../bower_components/paper-bottom-sheet/paper-bottom-sheet.html">
+<link rel="import" href="../bower_components/paper-bottom-sheet/paper-bottom-sheet-item.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/backend-template/backend-template.html">
+<link rel="import" href="../bower_components/backend-template/backend-category.html">
+<link rel="import" href="../bower_components/backend-template/backend-page.html">
+<link rel="import" href="../bower_components/paper-date-picker-item/paper-date-picker-item.html">
+<link rel="import" href="../bower_components/paper-date-picker-item/paper-datetime-picker-item.html">
+<link rel="import" href="../bower_components/iron-swipeable-container/iron-swipeable-container.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="my-icons.html">
+
+</head><body><dom-module id="my-app">
+  <template is="dom-bind" id="test">
+    <style include="shared-styles">
+
+      :host {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
+      }
+
+      paper-material {
+        background: #fff;
+        padding: 12px 24px;
+        margin: 16px;
+        max-width: 650px;
+      }
+
+      .container {
+        /*position: relative;*/
+        @apply(--layout-center-justified);
+      }
+
+      #submit {
+        background-color: var(--paper-indigo-500);
+        color: #fff;
+        margin-top: 24px;
+      }
+
+      paper-input {
+        max-width: 320px;
+        margin: auto;
+      }
+
+      .swipe {
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: default;
+      }
+
+      paper-card {
+        max-width: 640px;
+        max-height: 320px;
+        margin-bottom: 16px;
+      }
+
+      paper-datetime-picker-item {
+        max-width: 320px;
+        border-bottom: 1px solid #777;
+        cursor: pointer;
+        margin: 22px auto;
+      }
+
+      .yellow-button {
+        color: var(--paper-yellow-a100);
+      }
+      .container {
+        @apply(--layout-horizontal);
+      }
+      .circle {
+        margin-right: 12px;
+      }
+      iron-swipeable-container > iron-image:not(:first-child) {
+        display: none;
+      }
+      iron-swipeable-container {
+          position: absolute;
+          top: 257px;
+          left: 97px;
+      }
+      paper-input iron-icon {
+        color: #9b9b9b;
+        margin-right: 4px;
+        cursor: pointer;
+      }
+    </style>
+          <paper-material>
+            <div class="container">
+              <div class="circle">1</div>
+              <h1>Component Builder</h1>
+            </div>
+            <p>Create and preview components on all devices.</p>
+
+            <div class="container">
+
+            <iron-image style="width:240px; height:460px; background-color: white" sizing="contain" preload="" fade="" src="../images/iphone.png"></iron-image>
+
+              <iron-swipeable-container>
+                <iron-image style="width:188px; height:94px; background-color: lightgray" class="swipe" sizing="cover" preload="" fade="" src="[[imgSrc]]"></iron-image>
+
+                <iron-image style="width:188px; height:94px; background-color: lightgray" class="swipe" sizing="cover" preload="" fade="" src="[[imgSrc]]"></iron-image>
+
+                <iron-image style="width:188px; height:94px; background-color: lightgray" class="swipe" sizing="cover" preload="" fade="" src="[[imgSrc]]"></iron-image>
+
+              </iron-swipeable-container>
+            </div>
+
+            <paper-input label="Image link URL" id="imgUrl" autosave="test" results="5" on-change="urlInputChange" hidden$="[[isFrench]]">
+              <iron-icon icon="icons:link" prefix=""></iron-icon>
+            </paper-input>
+            <paper-input label="Image link URL (FR)" id="imgUrl" autosave="test" results="5" on-change="urlInputChange" hidden$="[[!isFrench]]">
+              <iron-icon icon="icons:link" prefix=""></iron-icon>
+            </paper-input>
+
+            <paper-input label="Image text label" hidden$="[[isFrench]]">
+              <iron-icon icon="icons:label-outline" prefix=""></iron-icon>
+            </paper-input>
+            <paper-input label="Image text label (FR)" hidden$="[[!isFrench]]">
+              <iron-icon icon="icons:label-outline" prefix=""></iron-icon>
+            </paper-input>
+
+            <paper-input label="Image launch URL" hidden$="[[isFrench]]">
+              <iron-icon icon="icons:launch" prefix=""></iron-icon>
+            </paper-input>
+            <paper-input label="Image launch URL (FR)" hidden$="[[!isFrench]]">
+              <iron-icon icon="icons:launch" prefix=""></iron-icon>
+            </paper-input>
+
+            <paper-datetime-picker-item icon="icons:today" placeholder="Start date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+            <paper-datetime-picker-item icon="icons:event" placeholder="End date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+            <p>
+              <paper-button raised="" on-tap="submit" name="submit" id="submit">Publish</paper-button>
+              <paper-checkbox on-tap="toggleFrench">French</paper-checkbox>
+            </p>
+          </paper-material>
+
+    <paper-toast id="mainToast" duration="5000" text="Content Published!">
+      <paper-button on-tap="closeToast" class="yellow-button">Undo</paper-button>
+    </paper-toast>
+  </template>
+
+  <script>Polymer({is:"my-app",openSheet:function(){this.$.sheet.open()},properties:{imgSrc:{type:String,notify:!0,value:"http://lorempixel.com/640/320"},isFrench:{type:Boolean,notify:!0,value:!1},planDate:{type:Object,value:function(){return{startDate:"2016/12/01",endDate:"2016/12/31"}},observer:"_planDateChanged"}},toggleFrench:function(){this.isFrench=!this.isFrench},openStartDate:function(){this.$.startDatePicker.open()},openStartTime:function(){this.$.startTimePicker.open()},submit:function(){console.log("submit!"),this.$.mainToast.open()},urlInputChange:function(){console.log("got here"),console.log(this.$.imgUrl.value),this.imgSrc=this.$.imgUrl.value},closeToast:function(){this.$.mainToast.close()},_planDateChanged:function(e,t){console.log("plan-date-changed:",e,t)}});</script>
+</dom-module>
+</body></html>

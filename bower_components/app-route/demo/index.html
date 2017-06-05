@@ -54,7 +54,7 @@ http://polymer.github.io/PATENTS.txt
         display: block;
         position: relative;
         height: 100vh;
-        @apply --paper-font-common-base;
+        @apply(--paper-font-common-base);
       }
 
       :host([video-page-active]) {
@@ -156,9 +156,13 @@ http://polymer.github.io/PATENTS.txt
           }
         },
 
-        attached: function() {
+        observers: [
+          '_onRoutePathChanged(route.path)'
+        ],
+
+        _onRoutePathChanged: function(path) {
           // If we do not have an initial URL, we redirect to /search
-          if (!this.route || !this.route.path) {
+          if (!path) {
             this.set('route.path', '/search/');
           }
         },

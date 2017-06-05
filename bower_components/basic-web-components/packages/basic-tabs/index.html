@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>basic-tabs</title>
+
+  <script src="../demos/lib/webcomponents.js"></script>
+  <script src="./dist/basic-tabs.js"></script>
+  <link rel="stylesheet" href="../demos/demos.css">
+
+  <style>
+  basic-tabs {
+    display: -webkit-flex;
+    display: flex;
+    height: 300px;
+    max-width: 100%;
+    width: 400px;
+  }
+
+  .panel {
+    -webkit-align-items: center;
+    align-items: center;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex: 1;
+    flex: 1;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+  </style>
+
+</head>
+
+<body>
+  <p>
+    The basic-tabs component provides a stock combination of a
+    <a href="../basic-tab-strip/">basic-tab-strip</a> element and a
+    <a href="../basic-modes/">basic-modes</a> element.
+  </p>
+  <basic-tabs aria-label="Panels">
+    <div class="panel" aria-label="One">Page one</div>
+    <div class="panel" aria-label="Two">Page two</div>
+    <div class="panel" aria-label="Three">Page three</div>
+  </basic-tabs>
+</body>
+
+</html>

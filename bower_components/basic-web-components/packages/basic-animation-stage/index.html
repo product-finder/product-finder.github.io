@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>basic-animation-stage</title>
+
+  <script src="../demos/lib/web-animations.min.js"></script>
+  <script src="../demos/lib/webcomponents.js"></script>
+  <script src="../basic-page-dots/dist/basic-page-dots.js"></script>
+  <script src="../basic-component-mixins/dist/basic-component-mixins.js"></script>
+  <script src="./dist/basic-animation-stage.js"></script>
+  <link rel="stylesheet" href="../demos/demos.css">
+
+  <style>
+  html {
+    height: 100%;
+  }
+
+  body {
+    display: -webkit-flex;
+    display: flex;
+    height: 100%;
+    padding: 0;
+  }
+
+  body, select {
+    background: black;
+    color: white;
+  }
+
+  basic-page-dots {
+    display: block; /* Stupid IE */
+  }
+
+  basic-animation-stage {
+    height: 100vmin;
+    width: 100vmin;
+  }
+
+  .box {
+    -webkit-align-items: center;
+    align-items: center;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.75);
+    display: -webkit-flex;
+    display: flex;
+    font-weight: bold;
+    font-size: 24px;
+    height: 100vmin;
+    -webkit-justify-content: center;
+    justify-content: center;
+    position: absolute;
+    width: 100vmin;
+  }
+
+  .lightText {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  #options {
+    -webkit-align-items: center;
+    align-items: center;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex: 1;
+    flex: 1;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    justify-content: center;
+    padding: 1em;
+  }
+
+  @media all and (orientation: portrait) {
+    body {
+      -webkit-flex-direction: column;
+      flex-direction: column;
+    }
+  }
+  </style>
+
+  <script>
+  var stage;
+
+  window.addEventListener('load', function() {
+    stage = document.querySelector('#stage');
+    var checkboxSelectionWraps = document.querySelector('#checkboxSelectionWraps');
+    checkboxSelectionWraps.addEventListener('change', function() {
+      stage.selectionWraps = checkboxSelectionWraps.checked;
+    })
+    effectSelector = document.querySelector('#effectSelector');
+    effectSelector.addEventListener('change', function() {
+      setAnimationEffect(effectSelector.value);
+    });
+    setAnimationEffect(effectSelector.value);
+  });
+
+  function setAnimationEffect(effectName) {
+    resetStylesOnItems(stage);
+    var defaultKeyframes = Object.getPrototypeOf(stage).selectionAnimationKeyframes;
+    var standardEffectKeyframes = Basic.SelectionAnimation.standardEffectKeyframes;
+    stage.selectionAnimationKeyframes = standardEffectKeyframes[effectName] || defaultKeyframes;
+  }
+
+  // Clear any animated properties left on child elements by previous effects.
+  function resetStylesOnItems(element) {
+    var resetState = {
+      opacity: 1,
+      transform: 'translateX(0%)',
+      zIndex: 0
+    };
+    [].forEach.call(element.children, function(child) {
+      var style = getComputedStyle(child);
+      var currentState = {
+        opacity: style.opacity,
+        transform: style.transform,
+        zIndex: style.zIndex
+      };
+      var animation = [currentState, resetState];
+      child.animate(animation, { duration: 0, fill: 'both' });
+    });
+  }
+  </script>
+
+</head>
+
+<body>
+  <basic-page-dots>
+    <basic-animation-stage id="stage" selection-wraps="false" aria-label="Pages">
+      <div class="box lightText" style="background: #53777a;"><div>One</div></div>
+      <div class="box" style="background: #d95b43"><div>Two</div></div>
+      <div class="box" style="background: #c02942"><div>Three</div></div>
+      <div class="box" style="background: #ecd078"><div>Four</div></div>
+      <div class="box lightText" style="background: #542437;"><div>Five</div></div>
+    </basic-animation-stage>
+  </basic-page-dots>
+  <div id="options">
+    <div>
+      <p>
+        Effect: <select id="effectSelector">
+          <option value="fade">Fade</option>
+          <option value="reveal">Reveal</option>
+          <option value="revealWithFade" selected>Reveal with fade</option>
+          <option value="showAdjacent">Show bit of adjacent items</option>
+          <option value="slide">Slide</option>
+          <option value="slideWithGap">Slide with gap</option>
+        </select>
+      </p>
+      <p>
+        <label><input type="checkbox" id="checkboxSelectionWraps"> Wrap around at ends of list</label>
+      </p>
+      <p style="font-size: smaller;">
+        This component is a programmatic rendering surface, and comes with no
+        interactivity of its own. This demo adds an instance of basic-page-dots.
+        For a fully interactive carousel that includes touch support, see the
+        related basic-carousel component.
+      </p>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -25,30 +25,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../app-toolbar/app-toolbar.html">
   <link rel="import" href="../app-drawer.html">
 
-  <custom-style>
-    <style is="custom-style">
+  <style is="custom-style">
 
-      body {
-        margin: 0;
-        font-family: 'Roboto', 'Noto', sans-serif;
-        background-color: #eee;
+    body {
+      margin: 0;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      background-color: #eee;
+    }
+
+    app-toolbar {
+      background-color: #4285f4;
+      color: #fff;
+    }
+
+    app-drawer {
+      --app-drawer-scrim-background: rgba(0, 0, 100, 0.8);
+
+      --app-drawer-content-container: {
+        background-color: #B0BEC5;
       }
+    }
 
-      app-toolbar {
-        background-color: #4285f4;
-        color: #fff;
-      }
-
-      app-drawer {
-        --app-drawer-scrim-background: rgba(0, 0, 100, 0.8);
-
-        --app-drawer-content-container: {
-          background-color: #B0BEC5;
-        }
-      }
-
-    </style>
-  </custom-style>
+  </style>
 
 </head>
 <body>
@@ -63,7 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
     var drawer = document.querySelector('app-drawer');
-    document.querySelector('paper-icon-button').addEventListener('click', function() {
+    document.querySelector('paper-icon-button').addEventListener('tap', function() {
       drawer.toggle();
     });
   </script>

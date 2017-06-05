@@ -36,10 +36,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <style>
 
-    app-drawer-layout:not([narrow]) [drawer-toggle] {
-      display: none;
-    }
-
     app-drawer section {
       height: 100%;
       overflow-y: auto;
@@ -61,7 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: #fff;
       background-color: #C62828;
       --app-header-background-front-layer: {
-        background-image: url(https://app-layout-assets.appspot.com/assets/test-drive.jpg);
+        background-image: url(//app-layout-assets.appspot.com/assets/test-drive.jpg);
         background-position: 50% 10%;
       };
     }
@@ -74,7 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <app-drawer-layout>
 
-      <app-drawer swipe-open slot="drawer">
+      <app-drawer swipe-open>
         <section>
           <h2>app-header Properties</h2>
           <paper-checkbox checked="{{condenses}}">
@@ -119,8 +115,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             fixed="[[fixed]]"
             reveals="[[reveals]]"
             shadow="[[shadow]]"
-            effects="[[_computeEffects(blendBackground, fadeBackground, parallaxBackground, resizeSnappedTitle, resizeTitle, waterfall)]]"
-            slot="header">
+            effects="[[_computeEffects(blendBackground, fadeBackground, parallaxBackground, resizeSnappedTitle, resizeTitle, waterfall)]]">
 
           <app-toolbar>
             <paper-icon-button icon="app:menu" drawer-toggle></paper-icon-button>

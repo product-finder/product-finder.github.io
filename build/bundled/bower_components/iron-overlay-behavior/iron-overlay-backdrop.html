@@ -1,0 +1,38 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="iron-overlay-manager.html">
+
+
+
+</head><body><dom-module id="iron-overlay-backdrop">
+
+  <style>
+
+    :host {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--iron-overlay-backdrop-background-color, #000);
+      opacity: 0;
+      transition: opacity 0.2s;
+
+      @apply(--iron-overlay-backdrop);
+    }
+
+    :host([opened]) {
+      opacity: var(--iron-overlay-backdrop-opacity, 0.6);
+
+      @apply(--iron-overlay-backdrop-opened);
+    }
+
+  </style>
+
+  <template>
+    <content></content>
+  </template>
+
+</dom-module>
+
+<script>!function(){Polymer({is:"iron-overlay-backdrop",properties:{opened:{readOnly:!0,reflectToAttribute:!0,type:Boolean,value:!1},_manager:{type:Object,value:Polymer.IronOverlayManager}},prepare:function(){this.parentNode||(Polymer.dom(document.body).appendChild(this),this.style.zIndex=this._manager.currentOverlayZ()-1)},open:function(){this._manager.getBackdrops().length<2&&this._setOpened(!0)},close:function(){this._manager.getBackdrops().length<2&&this._setOpened(!1)},complete:function(){0===this._manager.getBackdrops().length&&this.parentNode&&Polymer.dom(this.parentNode).removeChild(this)}})}();</script>
+</body></html>

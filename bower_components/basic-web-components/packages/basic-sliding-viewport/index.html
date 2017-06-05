@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>basic-spread-items</title>
+
+  <script src="../demos/lib/webcomponents.js"></script>
+  <script src="./dist/basic-sliding-viewport.js"></script>
+  <link rel="stylesheet" href="../demos/demos.css">
+
+  <style>
+  html {
+    height: 100%;
+  }
+
+  body {
+    align-items: center;
+    display: -webkit-flex;
+    display: flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  basic-sliding-viewport {
+    height: 100%;
+    width: 100%;
+  }
+
+  img {
+    height: 100%;
+  }
+  </style>
+
+</head>
+
+<body>
+  <basic-sliding-viewport>
+    <img src="../demos/resources/images/image1.jpg" alt="Lake">
+    <img src="../demos/resources/images/image2.jpg" alt="Horses">
+    <img src="../demos/resources/images/image6.jpg" alt="Wheat">
+    <img src="../demos/resources/images/image3.jpg" alt="Mountain">
+    <img src="../demos/resources/images/image7.jpg" alt="Palm tree">
+  </basic-sliding-viewport>
+</body>
+
+</html>

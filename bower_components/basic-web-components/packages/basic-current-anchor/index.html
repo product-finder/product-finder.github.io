@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>basic-current-anchor</title>
+
+  <script src="../demos/lib/webcomponents.js"></script>
+  <script src="./dist/basic-current-anchor.js"></script>
+  <link rel="stylesheet" href="../demos/demos.css">
+
+  <style>
+  basic-current-anchor {
+    color: black;
+    text-decoration: underline;
+  }
+
+  basic-current-anchor.current {
+    color: red;
+    font-weight: bold;
+  }
+  </style>
+
+</head>
+
+<body>
+  <p>
+    The links on this page highlight themselves as appropriate. They will appear
+    current (bold) when the current page address matches their link destination.
+    As an example, the links below navigate to anchors within the page. As you
+    navigate (by clicking, editing the address bar, going back/forward), the
+    links will update their own current state.
+  </p>
+  <ul>
+    <li>
+      <basic-current-anchor href="#one">One</basic-current-anchor>
+    </li>
+    <li>
+      <basic-current-anchor href="#two">Two</basic-current-anchor>
+    </li>
+    <li>
+      <basic-current-anchor href="#three">Three</basic-current-anchor>
+    </li>
+  </ul>
+  <p>
+    A link of this type can also represent an area within a site, not just a
+    single page. Such a link will be marked as current whenever the user is at a
+    destination at or below the point in the navigational hierarchy indicated
+    by the link's destination.
+  </p>
+  <ul>
+    <li>
+      <basic-current-anchor href="./">Page link</basic-current-anchor>.
+      The link only appears current when the current page address matches the
+      link destination. In this demo, it will only appear current if there is
+      no "#" hash anchor in the address bar.
+    </li>
+    <li>
+      <basic-current-anchor href="./" area-link='true'>Area link</basic-current-anchor>.
+      The link goes to the same destination as the page link above, but appears
+      current whenever the current page address matches the prefix indicated by
+      the link destination. In this demo, it will always show as current.
+    </li>
+  </ul>
+</body>
+
+</html>

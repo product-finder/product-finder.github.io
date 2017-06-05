@@ -64,7 +64,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         category: {
           type: String,
-          notify: true
+          notify: true,
+          observer: '_categoryChanged'
         },
 
         params: {

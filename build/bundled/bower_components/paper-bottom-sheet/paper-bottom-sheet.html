@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-selector/iron-selectable.html">
+<link rel="import" href="../neon-animation/animations/slide-from-bottom-animation.html">
+<link rel="import" href="../neon-animation/animations/slide-down-animation.html">
+<link rel="import" href="paper-bottom-sheet-item.html">
+
+
+</head><body><dom-module id="paper-bottom-sheet">
+
+	<template>
+		<style>
+			.dialog {
+				background-color: rgba(0,0,0,0.6)!important;
+				margin: 0!important;
+				@apply(--layout-fixed-bottom);
+			}
+
+			.content {
+				width: 100%;
+				background-color: white;
+				bottom: 0;
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+
+		<paper-dialog id="dialog" class="dialog" animation-config="{{_dialogAnimationConfig}}" modal="[[modal]]" with-backdrop="[[withBackdrop]]" on-iron-overlay-closed="_attemptRemoval">
+			<div class="content">
+				<content id="items"></content>
+				<paper-bottom-sheet-item hidden$="[[!modal]]" id="cancel" text="[[cancelText]]" icon="icons:close" on-tap="close"></paper-bottom-sheet-item>
+			</div>
+		</paper-dialog>
+	</template>
+
+</dom-module>
+
+<script>!function(){Polymer({is:"paper-bottom-sheet",behaviors:[Polymer.IronSelectableBehavior],properties:{cancelText:{type:String,value:"Cancel"},modal:{type:Boolean,value:!1,reflectToAttribute:!0},slide:{type:Boolean,value:!1,reflectToAttribute:!0},withBackdrop:{type:Boolean,value:!0,reflectToAttribute:!0},_dialogAnimationConfig:{type:Object,computed:"_animationConfig(slide)"}},open:function(){Polymer.dom(document.body).appendChild(this),setTimeout(function(){this.$.dialog.open()}.bind(this),1)},close:function(){this.$.dialog.close(),this.slide||this._attemptRemoval()},_animationConfig:function(e){return e?{entry:{name:"slide-from-bottom-animation",node:this.$.dialog},exit:{name:"slide-down-animation",node:this.$.dialog}}:{}},_attemptRemoval:function(){Polymer.dom(this.parentNode).removeChild(this)}})}();</script>
+</body></html>

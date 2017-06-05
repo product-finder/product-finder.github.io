@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
@@ -18,162 +18,230 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/app-datepicker/app-datepicker-dialog.html">
+<link rel="import" href="../bower_components/compound-timepicker/compound-timepicker-dialog.html">
+<link rel="import" href="../bower_components/file-upload/file-upload.html">
+<link rel="import" href="../bower_components/paper-bottom-sheet/paper-bottom-sheet.html">
+<link rel="import" href="../bower_components/paper-bottom-sheet/paper-bottom-sheet-item.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/backend-template/backend-template.html">
+<link rel="import" href="../bower_components/backend-template/backend-category.html">
+<link rel="import" href="../bower_components/backend-template/backend-page.html">
+<link rel="import" href="../bower_components/paper-date-picker-item/paper-date-picker-item.html">
+<link rel="import" href="../bower_components/paper-date-picker-item/paper-datetime-picker-item.html">
+<link rel="import" href="../bower_components/iron-swipeable-container/iron-swipeable-container.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+<link rel="import" href="shared-styles.html">
 <link rel="import" href="my-icons.html">
 
-<link rel="lazy-import" href="my-view1.html">
-<link rel="lazy-import" href="my-view2.html">
-<link rel="lazy-import" href="my-view3.html">
-<link rel="lazy-import" href="my-view404.html">
-
 <dom-module id="my-app">
-  <template>
-    <style>
-      :host {
-        --app-primary-color: #4285f4;
-        --app-secondary-color: black;
+  <template is="dom-bind" id="test">
+    <style include="shared-styles">
 
-        display: block;
+      :host {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
       }
 
-      app-drawer-layout:not([narrow]) [drawer-toggle] {
+      paper-material {
+        background: #fff;
+        padding: 12px 24px;
+        margin: 16px;
+        max-width: 650px;
+      }
+
+      .container {
+        /*position: relative;*/
+        @apply(--layout-center-justified);
+      }
+
+      #submit {
+        background-color: var(--paper-indigo-500);
+        color: #fff;
+        margin-top: 24px;
+      }
+
+      paper-input {
+        max-width: 320px;
+        margin: auto;
+      }
+
+      .swipe {
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: default;
+      }
+
+      paper-card {
+        max-width: 640px;
+        max-height: 320px;
+        margin-bottom: 16px;
+      }
+
+      paper-datetime-picker-item {
+        max-width: 320px;
+        border-bottom: 1px solid #777;
+        cursor: pointer;
+        margin: 22px auto;
+      }
+
+      .yellow-button {
+        color: var(--paper-yellow-a100);
+      }
+      .container {
+        @apply(--layout-horizontal);
+      }
+      .circle {
+        margin-right: 12px;
+      }
+      iron-swipeable-container > iron-image:not(:first-child) {
         display: none;
       }
-
-      app-header {
-        color: #fff;
-        background-color: var(--app-primary-color);
+      iron-swipeable-container {
+          position: absolute;
+          top: 257px;
+          left: 97px;
       }
-
-      app-header paper-icon-button {
-        --paper-icon-button-ink-color: white;
-      }
-
-      .drawer-list {
-        margin: 0 20px;
-      }
-
-      .drawer-list a {
-        display: block;
-        padding: 0 16px;
-        text-decoration: none;
-        color: var(--app-secondary-color);
-        line-height: 40px;
-      }
-
-      .drawer-list a.iron-selected {
-        color: black;
-        font-weight: bold;
+      paper-input iron-icon {
+        color: #9b9b9b;
+        margin-right: 4px;
+        cursor: pointer;
       }
     </style>
+          <paper-material>
+            <div class="container">
+              <div class="circle">1</div>
+              <h1>Component Builder</h1>
+            </div>
+            <p>Create and preview components on all devices.</p>
 
-    <app-location route="{{route}}"></app-location>
-    <app-route
-        route="{{route}}"
-        pattern="[[rootPattern]]:page"
-        data="{{routeData}}"
-        tail="{{subroute}}"></app-route>
+            <div class="container">
 
-    <app-drawer-layout fullbleed>
-      <!-- Drawer content -->
-      <app-drawer id="drawer" slot="drawer">
-        <app-toolbar>Menu</app-toolbar>
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href="view1">View One</a>
-          <a name="view2" href="view2">View Two</a>
-          <a name="view3" href="view3">View Three</a>
-        </iron-selector>
-      </app-drawer>
+            <iron-image style="width:240px; height:460px; background-color: white;"
+                        sizing="contain" preload fade src="../images/iphone.png"></iron-image>
 
-      <!-- Main content -->
-      <app-header-layout has-scrolling-region>
+              <iron-swipeable-container>
+                <iron-image style="width:188px; height:94px; background-color: lightgray" class="swipe"
+                            sizing="cover" preload fade src="[[imgSrc]]"></iron-image>
 
-        <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>My App</div>
-          </app-toolbar>
-        </app-header>
+                <iron-image style="width:188px; height:94px; background-color: lightgray" class="swipe"
+                            sizing="cover" preload fade src="[[imgSrc]]"></iron-image>
 
-        <iron-pages
-            selected="[[page]]"
-            attr-for-selected="name"
-            fallback-selection="view404"
-            role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
-          <my-view404 name="view404"></my-view404>
-        </iron-pages>
-      </app-header-layout>
-    </app-drawer-layout>
+                <iron-image style="width:188px; height:94px; background-color: lightgray" class="swipe"
+                            sizing="cover" preload fade src="[[imgSrc]]"></iron-image>
+
+              </iron-swipeable-container>
+            </div>
+
+            <paper-input label="Image link URL" id="imgUrl" autosave="test" results="5" on-change="urlInputChange" hidden$="[[isFrench]]">
+              <iron-icon icon="icons:link" prefix></iron-icon>
+            </paper-input>
+            <paper-input label="Image link URL (FR)" id="imgUrl" autosave="test" results="5" on-change="urlInputChange" hidden$="[[!isFrench]]">
+              <iron-icon icon="icons:link" prefix></iron-icon>
+            </paper-input>
+
+            <paper-input label="Image text label" hidden$="[[isFrench]]">
+              <iron-icon icon="icons:label-outline" prefix></iron-icon>
+            </paper-input>
+            <paper-input label="Image text label (FR)" hidden$="[[!isFrench]]">
+              <iron-icon icon="icons:label-outline" prefix></iron-icon>
+            </paper-input>
+
+            <paper-input label="Image launch URL" hidden$="[[isFrench]]">
+              <iron-icon icon="icons:launch" prefix></iron-icon>
+            </paper-input>
+            <paper-input label="Image launch URL (FR)" hidden$="[[!isFrench]]">
+              <iron-icon icon="icons:launch" prefix></iron-icon>
+            </paper-input>
+
+            <paper-datetime-picker-item icon="icons:today" placeholder="Start date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+            <paper-datetime-picker-item icon="icons:event" placeholder="End date / time (PST)" default-time="09:00"></paper-datetime-picker-item>
+            <p>
+              <paper-button raised on-tap="submit" name="submit" id="submit">Publish</paper-button>
+              <paper-checkbox on-tap="toggleFrench">French</paper-checkbox>
+            </p>
+          </paper-material>
+
+    <paper-toast id="mainToast" duration="5000" text="Content Published!">
+      <paper-button on-tap="closeToast" class="yellow-button">Undo</paper-button>
+    </paper-toast>
   </template>
 
   <script>
-    class MyApp extends Polymer.Element {
+    Polymer({
+      is: 'my-app',
 
-      static get is() { return 'my-app'; }
+      openSheet: function () {
+        this.$.sheet.open();
+      },
 
-      static get properties() {
-        return {
-          page: {
-            type: String,
-            reflectToAttribute: true,
-            observer: '_pageChanged',
+      properties: {
+
+        imgSrc: {
+          type: String,
+          notify: true,
+          value: 'http://lorempixel.com/640/320'
+        },
+
+        isFrench: {
+          type: Boolean,
+          notify: true,
+          value: false
+        },
+
+        planDate: {
+          type: Object,
+          value: function () {
+            return {
+              startDate: '2016/12/01',
+              endDate: '2016/12/31'
+            };
           },
-          rootPattern: String,
-          routeData: Object,
-          subroute: String,
-        };
-      }
-
-      static get observers() {
-        return [
-          '_routePageChanged(routeData.page)',
-        ];
-      }
-
-      constructor() {
-        super();
-
-        // Get root pattern for app-route, for more info about `rootPath` see:
-        // https://www.polymer-project.org/2.0/docs/upgrade#urls-in-templates
-        this.rootPattern = (new URL(this.rootPath)).pathname;
-      }
-
-      _routePageChanged(page) {
-        // Polymer 2.0 will call with `undefined` on initialization.
-        // Ignore until we are properly called with a string.
-        if (page === undefined) {
-          return;
+          observer: '_planDateChanged'
         }
+      },
 
-        // If no page was found in the route data, page will be an empty string.
-        // Deault to 'view1' in that case.
-        this.page = page || 'view1';
+      toggleFrench: function() {
+        this.isFrench = !this.isFrench;
+      },
 
-        // Close a non-persistent drawer when the page & route are changed.
-        if (!this.$.drawer.persistent) {
-          this.$.drawer.close();
-        }
+      openStartDate: function () {
+        this.$.startDatePicker.open();
+      },
+
+      openStartTime: function () {
+        this.$.startTimePicker.open();
+      },
+
+      submit: function () {
+        console.log('submit!');
+        this.$.mainToast.open();
+      },
+
+      urlInputChange: function() {
+        console.log('got here');
+        console.log(this.$.imgUrl.value);
+        this.imgSrc = this.$.imgUrl.value;
+      },
+
+      closeToast: function() {
+        this.$.mainToast.close();
+      },
+
+      _planDateChanged: function (_newv, _oldv) {
+        console.log('plan-date-changed:', _newv, _oldv);
       }
 
-      _pageChanged(page) {
-        // Load page import on demand. Show 404 page if fails
-        var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
-        Polymer.importHref(
-            resolvedPageUrl,
-            null,
-            this._showPage404.bind(this),
-            true);
-      }
-
-      _showPage404() {
-        this.page = 'view404';
-      }
-    }
-
-    window.customElements.define(MyApp.is, MyApp);
+    });
   </script>
 </dom-module>

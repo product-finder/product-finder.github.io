@@ -1,0 +1,42 @@
+<!DOCTYPE html><html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-item/paper-icon-item.html">
+<link rel="import" href="../paper-item/paper-item-body.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
+
+
+</head><body><dom-module id="paper-bottom-sheet-item">
+
+	<template>
+		<style>
+			:host {
+				/** Vertically center content in IE 11 */
+				@apply(--layout-vertical);
+			}
+
+			.item {
+				margin: 0;
+				background: white;
+				position: relative;
+				cursor: pointer;
+			}
+
+			:host[warning] {
+				color: var(--paper-red-900);
+			}
+		</style>
+
+		<paper-icon-item class="item" disabled$="[[disabled]]">
+			<paper-ripple fit=""></paper-ripple>
+			<iron-icon icon="[[icon]]" item-icon=""></iron-icon>
+			<span>[[text]]</span>
+		</paper-icon-item>
+	</template>
+
+</dom-module>
+
+<script>!function(){Polymer({is:"paper-bottom-sheet-item",properties:{text:String,icon:{type:String,value:"icons:check"},warning:{type:Boolean,value:!1,reflectToAttribute:!0},disabled:{type:Boolean,value:!1,reflectToAttribute:!0}}})}();</script>
+</body></html>

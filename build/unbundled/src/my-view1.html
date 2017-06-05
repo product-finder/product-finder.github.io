@@ -1,0 +1,103 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+</head><body><dom-module id="my-view1">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        box-sizing: border-box;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      paper-material {
+        padding: 30px;
+        margin: 30px 0;
+      }
+
+      .container {
+        position: relative;
+      }
+
+      #submit {
+        background-color: #4285f4;
+        color: #fff;
+        margin: 24px;
+      }
+
+      app-datepicker-dialog {
+        --app-datepicker-selection-bg: #4285f4;
+        --app-datepicker-selection-color: #cccccc;
+        --app-datepicker-selected-day-bg: #4285f4;
+        --app-datepicker-selected-year-color: #4285f4;
+        --app-datepicker-today-color: #4285f4;
+        --app-datepicker-disabled-color: #4285f4;
+        --app-datepicker-icon-button-color: #4285f4;
+        --app-datepicker-icon-button-ink-color: #4285f4;
+        --app-datepicker-button-color: #4285f4;
+        --app-datepicker-button-ink-color: #4285f4;
+        --app-datepicker-date-hover-background-color: #4285f4;
+      }
+
+      compound-timepicker-dialog {
+        --compound-timepicker: #4285f4;
+        --compound-timepicker-numbers: var(--paper-grey-800);
+        /*--compound-timepicker-clock-bg` | Background color of the clock face | `--paper-grey-100`*/
+        /*`--compound-timepicker-rings` | Background color of the all rings | `#eee`*/
+        /*`--compound-timepicker-minute-ring` | Background color of the minute ring | `#eee`*/
+        /*`--compound-timepicker-hour-ring` | Background color of the hour ring | `#eee`*/
+        /*`--compound-timepicker-center` | Background color of the center ring | `#e0e0e0`*/
+        --compound-timepicker-hour: #4285f4;
+        --compound-timepicker-hour-centroid: #4285f4;
+        /*`--compound-timepicker-strokewidth-hour-centroid` | Stroke width of the centroid of hour selector | `4`*/
+        --compound-timepicker-hour-hand: #4285f4;
+        /*`--compound-timepicker-strokewidth-hour-hand` | Stroke width of the hour hand | `2`*/
+        --compound-timepicker-minute: #4285f4;
+        --compound-timepicker-minute-centroid: #4285f4;
+        /*--compound-timepicker-strokewidth-minute-centroid` | Stroke width of the centroid of minute selector | `4`*/
+        --compound-timepicker-minute-hand: #4285f4;
+        /*--compound-timepicker-strokewidth-minute-hand` | Stroke width of the minute hand | `2`*/
+        --compound-timepicker-stroke-centroid: #4285f4;
+        /*`--compound-timepicker-strokewidth-centroid` | Stroke width of the centroid of clock face | `2`*/
+        /*`--compound-timepicker-centroid` | Fill color of the centroid of clock face | `#009688`*/
+        --compound-timepicker-minute-selected: #4285f4;
+        --compound-timepicker-text-selected: #fff;
+        --compound-timepicker-button-color: #4285f4;
+        /*--compound-timepicker-button-ink-color | Button ink color in dialog | #737373*/
+        --compound-timepicker-stroke-hour-hand: #4285f4;
+        --compound-timepicker-stroke-minute-hand: #4285f4;
+      }
+    </style>
+
+    <div class="card">
+      <div class="circle">1</div>
+      <h1>Media Upload Tool</h1>
+      <p>Upload your media files to create publicly accessbile endpoint URLs which can be timestamped!</p>
+      <p>
+        <file-upload droppable="true" raised="true" multi="true" accept="image/*">Choose Image</file-upload>
+      </p>
+      <p>
+      <paper-button raised="" on-tap="openStartDate">Choose Start Date</paper-button>
+      <paper-button disabled="">[[planDate.startDate]]</paper-button>
+      <app-datepicker-dialog id="startDatePicker" date="{{planDate.startDate}}" with-backdrop="" disabledays="" input-date="[[planDate.startDate]]"></app-datepicker-dialog>
+      </p>
+      <p>
+      <paper-button raised="" on-tap="openStartTime" name="timePicker">Choose Start Time</paper-button>
+      <paper-button disabled="">[[time]]</paper-button>
+      <compound-timepicker-dialog id="startTimePicker" time="{{time}}" with-backdrop=""></compound-timepicker-dialog>
+      </p>
+
+      <paper-input label="Alt text"></paper-input>
+      <p>
+        <paper-button raised="" on-tap="submit" name="submit" id="submit">Submit</paper-button>
+      </p>
+    </div>
+
+  </template>
+
+  <script>Polymer({is:"my-view1",properties:{planDate:{type:Object,value:function(){return{startDate:"2016/12/01",endDate:"2016/12/31"}},observer:"_planDateChanged"}},openStartDate:function(){this.$.startDatePicker.open()},openStartTime:function(){this.$.startTimePicker.open()},submit:function(){console.log("submit!")},_planDateChanged:function(e,t){console.log("plan-date-changed:",e,t)}});</script>
+</dom-module>
+</body></html>

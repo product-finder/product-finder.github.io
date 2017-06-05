@@ -1,0 +1,49 @@
+<link rel="import" href="../../iron-selector/iron-selectable.html">
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../iron-slideshow-controllable-behavior.html">
+<link rel="import" href="../iron-slideshow-controls.html">
+
+
+
+<dom-module id="gradient-slideshow">
+  <template>
+    <style>
+      :host {
+        display: block;
+        /* Required because <iron-slideshow-controls> use fit layout */
+        position: relative;
+        height: 200px;
+        width: 400px;
+      }
+      :host #slides ::content > *, #slides {
+        width: 100%;
+        height: 100%;
+      }
+      :host #slides ::content > *:nth-child(1) {
+        background: #00796B;
+      }
+      :host #slides ::content > *:nth-child(2) {
+        background: #1bbaa7;
+      }
+      :host #slides ::content > *:nth-child(3) {
+        background: #009688;
+      }
+      :host #slides ::content > :not(.iron-selected) {
+        display: none;
+      }
+    </style>
+    <div id="slides">
+      <content></content>
+    </div>
+    <iron-slideshow-controls arrows></iron-slideshow-controls>
+  </template>
+  <script>
+    Polymer({
+      is: 'gradient-slideshow',
+      behaviors: [
+        Polymer.IronSelectableBehavior,
+        Zecat.IronSlideshowControllableBehavior
+      ]
+    });
+  </script>
+</dom-module>

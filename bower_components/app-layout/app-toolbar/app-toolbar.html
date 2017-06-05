@@ -62,10 +62,9 @@ Custom property              | Description                  | Default
 <dom-module id="app-toolbar">
   <template>
     <style>
-
       :host {
-        @apply --layout-horizontal;
-        @apply --layout-center;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
         position: relative;
         height: 64px;
         padding: 0 16px;
@@ -73,42 +72,41 @@ Custom property              | Description                  | Default
         font-size: var(--app-toolbar-font-size, 20px);
       }
 
-      :host ::slotted(*) {
+      ::content > * {
         pointer-events: auto;
       }
 
-      :host ::slotted(paper-icon-button) {
+      ::content > paper-icon-button {
         /* paper-icon-button/issues/33 */
         font-size: 0;
       }
 
-      :host ::slotted([main-title]),
-      :host ::slotted([condensed-title]) {
+      ::content > [main-title],
+      ::content > [condensed-title] {
         pointer-events: none;
-        @apply --layout-flex;
+        @apply(--layout-flex);
       }
 
-      :host ::slotted([bottom-item]) {
+      ::content > [bottom-item] {
         position: absolute;
         right: 0;
         bottom: 0;
         left: 0;
       }
 
-      :host ::slotted([top-item]) {
+      ::content > [top-item] {
         position: absolute;
         top: 0;
         right: 0;
         left: 0;
       }
 
-      :host ::slotted([spacer]) {
+      ::content > [spacer] {
         margin-left: 64px;
       }
     </style>
 
-    <slot></slot>
-
+    <content></content>
   </template>
 
   <script>

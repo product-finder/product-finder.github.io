@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>neon-slideshow Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+    <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../../paper-card/paper-card.html">
+    <link rel="import" href="../../paper-tabs/paper-tabs.html">
+    <link rel="import" href="../../paper-tabs/paper-tab.html">
+    <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
+    <link rel="import" href="../neon-carousel-pages.html">
+    <link rel="import" href="../neon-slideshow-pages.html">
+    <link rel="import" href="../neon-slideshow-scrollable.html">
+    <link rel="import" href="../custom/neon-slideshow-scrollable-overlay.html">
+
+    <link rel="stylesheet" href="../../paper-styles/demo.css">
+
+  </head>
+  <body unresolved>
+
+  <template is="dom-bind" id="app">
+
+    <style is="custom-style">
+      paper-card {
+        margin: 30px;
+      }
+      #slideshow, #carousel{
+        width: 300px;
+        height: 250px;
+      }
+      #scrollableSlideshow {
+        width: 720px;
+        height: 250px; 
+      }
+      paper-card {
+        --paper-card-content: {
+          padding: 0;
+        };
+        --paper-card-actions: {
+          @apply(--layout-horizontal);
+          @apply(--layout-center);
+          @apply(--layout-center-justified);
+          height: 45px;
+        };
+      }
+      paper-tabs {
+        --paper-tabs-selection-bar-color: var(--default-primary-color);
+      }
+      paper-toggle-button {
+        margin: 0 20px;
+      }
+    </style>
+    
+    <div class="layout horizontal wrap center-justified">
+
+      <paper-card heading="Neon-slideshow-pages">
+        <neon-slideshow-pages
+          selected="{{selected}}"
+          id="slideshow"
+          class="card-content"
+          arrows="[[arrows]]">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Glossy-starling_Blue_and_Purple_Bird_3_(4872087117).jpg">
+          <img src="https://pixabay.com/static/uploads/photo/2013/07/18/14/50/bird-163770_640.jpg">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/House_Sparrow_(M)_I_IMG_7881.jpg">
+        </neon-slideshow-pages>
+        <div class="card-actions">
+          <paper-tabs selected="{{selected}}" class="fit" noink>
+            <paper-tab>SLIDE 1</paper-tab>
+            <paper-tab>SLIDE 2</paper-tab>
+            <paper-tab>SLIDE 3</paper-tab>
+          </paper-tabs>
+        </div>
+        <div class="card-actions">
+          <paper-toggle-button checked="{{arrows}}">arrows</paper-toggle-button>
+        </div>
+      </paper-card>
+
+      <paper-card heading="Neon-carousel-pages">
+        <neon-carousel-pages
+          id="carousel"
+          class="card-content"
+          delay="1000"
+          playing="[[playing]]">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Glossy-starling_Blue_and_Purple_Bird_3_(4872087117).jpg">
+          <img src="https://pixabay.com/static/uploads/photo/2013/07/18/14/50/bird-163770_640.jpg">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/House_Sparrow_(M)_I_IMG_7881.jpg">
+        </neon-carousel-pages>
+        <div class="card-actions">
+          <paper-toggle-button checked="{{playing}}">Playing</paper-toggle-button>
+        </div>
+        <div class="card-actions">
+          <paper-button on-tap="toggleCarouselDirection">Toogle direction</paper-button>
+        </div>
+      </paper-card>
+
+      <paper-card heading="Scrollable slideshow">
+        <neon-slideshow-scrollable 
+          id="scrollableSlideshow"
+          center-slide-on-tap="[[centerSlideOnTap]]"
+          center-slide-on-track-end="[[centerSlideOnTrackEnd]]">
+          <img draggable="false" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Glossy-starling_Blue_and_Purple_Bird_3_(4872087117).jpg">
+          <img draggable="false" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Glossy-starling_Blue_and_Purple_Bird_3_(4872087117).jpg">
+          <img draggable="false" src="https://pixabay.com/static/uploads/photo/2013/07/18/14/50/bird-163770_640.jpg">
+          <img draggable="false" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Glossy-starling_Blue_and_Purple_Bird_3_(4872087117).jpg">
+          <img draggable="false" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Glossy-starling_Blue_and_Purple_Bird_3_(4872087117).jpg">
+          <img draggable="false" src="https://pixabay.com/static/uploads/photo/2013/07/18/14/50/bird-163770_640.jpg">
+        </neon-slideshow-scrollable>
+        <div class="card-actions">
+          <paper-toggle-button checked="{{centerSlideOnTap}}">Center slide on tap</paper-toggle-button>
+          <paper-toggle-button checked="{{centerSlideOnTrackEnd}}">Center slide on track end</paper-toggle-button>
+        </div>
+      </paper-card>    
+    </div>
+    <div class="layout horizontal center-justified">
+      <paper-button raised on-tap="openSlideshowOverlay">Open Overlay Slideshow</paper-button>
+    </div>
+
+    <neon-slideshow-scrollable-overlay
+      id="slideshowOverlay"
+      with-backdrop
+      center-slide-on-tap
+      auto-fit-on-attach arrows>
+      <img draggable="false" src="https://pixabay.com/static/uploads/photo/2013/07/18/14/50/bird-163770_640.jpg">
+      <img draggable="false" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Glossy-starling_Blue_and_Purple_Bird_3_(4872087117).jpg">
+      <img draggable="false" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Glossy-starling_Blue_and_Purple_Bird_3_(4872087117).jpg">
+      <img draggable="false" src="https://pixabay.com/static/uploads/photo/2013/07/18/14/50/bird-163770_640.jpg"><img draggable="false" src="https://pixabay.com/static/uploads/photo/2013/07/18/14/50/bird-163770_640.jpg">
+      <img draggable="false" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Glossy-starling_Blue_and_Purple_Bird_3_(4872087117).jpg">
+      <img draggable="false" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Glossy-starling_Blue_and_Purple_Bird_3_(4872087117).jpg">
+      <img draggable="false" src="https://pixabay.com/static/uploads/photo/2013/07/18/14/50/bird-163770_640.jpg">
+    </neon-slideshow-scrollable-overlay>
+
+    </template>
+
+  <script>
+
+    var app = document.querySelector('#app');
+    app.toggleCarouselDirection = function() {
+      app.$.carousel.direction = app.$.carousel.direction == 'right' ? 'left' : 'right';
+    };
+    app.openSlideshowOverlay = function() {
+      app.$.slideshowOverlay.open();
+    }
+
+  </script>
+
+  </body>
+</html>

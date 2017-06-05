@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>basic-web-components browserified test</title>
+
+  <script src="../../node_modules/webcomponents.js/webcomponents-lite.min.js"></script>
+  <script src="../../build/basic-web-components.js"></script>
+
+  <style>
+    body,
+    button,
+    input {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+    }
+
+    #carousel-frame,
+    basic-arrow-direction,
+    basic-page-dots {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex: 1;
+      flex: 1;
+    }
+
+    .demo {
+      margin-bottom: 100px;
+      min-height: 400px;
+    }
+
+    basic-carousel {
+      -webkit-flex: 1;
+      flex: 1;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h2>basic-autosize-textarea</h2>
+  <div class="demo">
+    <basic-autosize-textarea minimum-rows="2">
+      Type all you want here!
+    </basic-autosize-textarea>
+  </div>
+
+  <h2>basic-carousel</h2>
+  <div id="carousel-frame" class="demo">
+    <basic-arrow-direction target="child" class="overlay" aria-label="Nature scenes" role="listbox">
+      <basic-page-dots target="child">
+        <basic-carousel>
+          <img src="http://hosting.component.kitchen/resources/images/image1.jpg" alt="Lake">
+          <img src="http://hosting.component.kitchen/resources/images/image2.jpg" alt="Horses">
+          <img src="http://hosting.component.kitchen/resources/images/image6.jpg" alt="Wheat">
+          <img src="http://hosting.component.kitchen/resources/images/image3.jpg" alt="Mountain">
+          <img src="http://hosting.component.kitchen/resources/images/image7.jpg" alt="Palm tree">
+        </basic-carousel>
+      </basic-page-dots>
+    </basic-arrow-direction>
+  </div>
+
+  <h2>basic-list-box</h2>
+  <div class="demo">
+    <basic-list-box  aria-label="Fruits" style="height: 200px; max-width: 400px;">
+      <div>Acai</div>
+      <div>Acerola</div>
+      <div>Apple</div>
+      <div>Apricot</div>
+      <div>Banana</div>
+      <div>Blackberry</div>
+      <div>Blueberry</div>
+      <div>Cantaloupe</div>
+      <div>Cherry</div>
+      <div>Cranberry</div>
+      <div>Currant</div>
+      <div>Date</div>
+      <div>Durian</div>
+      <div>Fig</div>
+      <div>Goji berry</div>
+      <div>Gooseberry</div>
+      <div>Grape</div>
+      <div>Grapefruit</div>
+      <div>Honeydew</div>
+      <div>Jackfruit</div>
+      <div>Kiwi</div>
+      <div>Kumquat</div>
+      <div>Lemon</div>
+      <div>Lime</div>
+      <div>Lychee </div>
+      <div>Mango</div>
+      <div>Mangosteen</div>
+      <div>Mulberry</div>
+      <div>Nectarine</div>
+      <div>Orange</div>
+      <div>Papaya</div>
+      <div>Passion Fruit</div>
+      <div>Peach</div>
+      <div>Pear</div>
+      <div>Pineapple</div>
+      <div>Plum</div>
+      <div>Pomegranate</div>
+      <div>Pomelo</div>
+      <div>Prickly Pear</div>
+      <div>Raspberry</div>
+      <div>Strawberry</div>
+      <div>Tangerine</div>
+      <div>Watermelon</div>
+    </basic-list-box>
+  </div>
+
+</body>
+
+</html>

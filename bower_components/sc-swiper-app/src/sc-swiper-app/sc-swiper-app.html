@@ -1,0 +1,58 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/sc-swiper/sc-swiper.html">
+
+<dom-module id="sc-swiper-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-ajax url="http://pastebin.com/raw/rCjH7vNd" handle-as="json" last-response="{{slideShow}}" auto></iron-ajax>
+
+    <sc-swiper loop 
+               pagination 
+               pagination-clickable 
+               navigation-buttons 
+               a11y 
+               keyboard-control
+               options='{{slideShowOptions}}'>
+      <template is="dom-repeat" items="[[slideShow.images]]">
+        <img src="[[item.image-urls.en-CA]]" alt="[[item.alt-text.en-CA]]">
+      </template>
+    </sc-swiper>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'sc-swiper-app',
+
+      properties: {
+        slideShow: {
+          type: Object
+        },
+
+        slideShowOptions: {
+          type: Object,
+          computed: 'computeSlideShowOptions(slideShow)'
+        }
+      },
+
+      computeSlideShowOptions: function(slideShow) {
+        var slideShowSpeedMs = 5000;
+
+        var options = {};
+
+        if(slideShow.autoplay) {
+          options.autoplay = slideShowSpeedMs; //ms
+        }
+
+        return options;
+      }
+
+    });
+  </script>
+</dom-module>

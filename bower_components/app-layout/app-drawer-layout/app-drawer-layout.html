@@ -10,7 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../iron-media-query/iron-media-query.html">
-<link rel="import" href="../app-layout-behavior/app-layout-behavior.html">
+<link rel="import" href="../../iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../app-drawer/app-drawer.html">
 
 <!--
 app-drawer-layout is a wrapper element that positions an app-drawer and other content. When
@@ -22,7 +23,7 @@ By default the drawer is aligned to the start, which is left in LTR layouts:
 
 ```html
 <app-drawer-layout>
-  <app-drawer slot="drawer">
+  <app-drawer>
     drawer content
   </app-drawer>
   <div>
@@ -35,7 +36,7 @@ Align the drawer at the end:
 
 ```html
 <app-drawer-layout>
-  <app-drawer slot="drawer" align="end">
+  <app-drawer align="end">
      drawer content
   </app-drawer>
   <div>
@@ -48,11 +49,11 @@ With an app-header-layout:
 
 ```html
 <app-drawer-layout>
-  <app-drawer slot="drawer">
+  <app-drawer>
     drawer-content
   </app-drawer>
   <app-header-layout>
-    <app-header slot="header">
+    <app-header>
       <app-toolbar>
         <div main-title>App name</div>
       </app-toolbar>
@@ -64,15 +65,15 @@ With an app-header-layout:
 </app-drawer-layout>
 ```
 
-Add the `drawer-toggle` attribute to elements inside `app-drawer-layout` that toggle the drawer on click events:
+Add the `drawer-toggle` attribute to elements inside `app-drawer-layout` that toggle the drawer on tap events:
 
 ```html
 <app-drawer-layout>
-  <app-drawer slot="drawer">
+  <app-drawer>
     drawer-content
   </app-drawer>
   <app-header-layout>
-    <app-header slot="header">
+    <app-header>
       <app-toolbar>
         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
         <div main-title>App name</div>
@@ -85,21 +86,11 @@ Add the `drawer-toggle` attribute to elements inside `app-drawer-layout` that to
 </app-drawer-layout>
 ```
 
-**NOTE:** With app-layout 2.0, the `drawer-toggle` element will not be automatically hidden
-when app-drawer-layout is not in narrow layout. To add this, add the following CSS rule where
-app-drawer-layout is used:
-
-```css
-app-drawer-layout:not([narrow]) [drawer-toggle] {
-  display: none;
-}
-```
-
 Add the `fullbleed` attribute to app-drawer-layout to make it fit the size of its container:
 
 ```html
 <app-drawer-layout fullbleed>
-  <app-drawer slot="drawer">
+  <app-drawer>
      drawer content
   </app-drawer>
   <div>
@@ -112,19 +103,7 @@ Add the `fullbleed` attribute to app-drawer-layout to make it fit the size of it
 
 Custom property                          | Description                          | Default
 -----------------------------------------|--------------------------------------|---------
-`--app-drawer-width`                     | Width of the drawer                  | 256px
 `--app-drawer-layout-content-transition` | Transition for the content container | none
-
-**NOTE:** If you use <app-drawer> with <app-drawer-layout> and specify a value for
-`--app-drawer-width`, that value must be accessible by both elements. This can be done by
-defining the value on the `:host` that contains <app-drawer-layout> (or `html` if outside
-a shadow root):
-
-```css
-:host {
-  --app-drawer-width: 300px;
-}
-```
 
 @group App Elements
 @element app-drawer-layout
@@ -137,44 +116,30 @@ a shadow root):
     <style>
       :host {
         display: block;
-        /**
-         * Force app-drawer-layout to have its own stacking context so that its parent can
-         * control the stacking of it relative to other elements.
-         */
-        position: relative;
-        z-index: 0;
-      }
-
-      :host ::slotted([slot=drawer]) {
-        z-index: 1;
       }
 
       :host([fullbleed]) {
-        @apply --layout-fit;
+        @apply(--layout-fit);
       }
 
       #contentContainer {
-        /* Create a stacking context here so that all children appear below the header. */
         position: relative;
-        z-index: 0;
+
         height: 100%;
+
         transition: var(--app-drawer-layout-content-transition, none);
       }
 
-      #contentContainer[drawer-position=left] {
-        margin-left: var(--app-drawer-width, 256px);
-      }
-
-      #contentContainer[drawer-position=right] {
-        margin-right: var(--app-drawer-width, 256px);
+      #contentContainer:not(.narrow) > ::content [drawer-toggle] {
+        display: none;
       }
     </style>
 
-    <slot id="drawerSlot" name="drawer"></slot>
-
-    <div id="contentContainer" drawer-position$="[[_drawerPosition]]">
-      <slot></slot>
+    <div id="contentContainer">
+      <content select=":not(app-drawer)"></content>
     </div>
+
+    <content id="drawerContent" select="app-drawer"></content>
 
     <iron-media-query
         query="[[_computeMediaQuery(forceNarrow, responsiveWidth)]]"
@@ -186,7 +151,7 @@ a shadow root):
       is: 'app-drawer-layout',
 
       behaviors: [
-        Polymer.AppLayoutBehavior
+        Polymer.IronResizableBehavior
       ],
 
       properties: {
@@ -213,7 +178,6 @@ a shadow root):
          */
         narrow: {
           type: Boolean,
-          reflectToAttribute: true,
           readOnly: true,
           notify: true
         },
@@ -224,19 +188,19 @@ a shadow root):
         openedWhenNarrow: {
           type: Boolean,
           value: false
-        },
-
-        _drawerPosition: {
-          type: String
         }
       },
 
       listeners: {
-        'click': '_clickHandler'
+        'tap': '_tapHandler',
+        'app-drawer-attached': '_resetDrawerState',
+        'app-drawer-reset-layout': 'resetLayout',
+        'iron-resize': 'resetLayout'
       },
 
       observers: [
-        '_narrowChanged(narrow)'
+        'resetLayout(narrow, isAttached)',
+        '_narrowChanged(narrow, isAttached)'
       ],
 
       /**
@@ -245,19 +209,10 @@ a shadow root):
        * @property drawer
        */
       get drawer() {
-        return Polymer.dom(this.$.drawerSlot).getDistributedNodes()[0];
+        return Polymer.dom(this.$.drawerContent).getDistributedNodes()[0];
       },
 
-      attached: function() {
-        // Disable drawer transitions until after app-drawer-layout sets the initial opened state.
-        var drawer = this.drawer;
-        if (drawer) {
-          this._savedDrawerTransitionDuration = drawer.transitionDuration;
-          drawer.transitionDuration = 0;
-        }
-      },
-
-      _clickHandler: function(e) {
+      _tapHandler: function(e) {
         var target = Polymer.dom(e).localTarget;
         if (target && target.hasAttribute('drawer-toggle')) {
           var drawer = this.drawer;
@@ -267,34 +222,47 @@ a shadow root):
         }
       },
 
-      _updateLayoutStates: function() {
-        var drawer = this.drawer;
-        if (!drawer) {
-          return;
-        }
+      resetLayout: function() {
+        this.debounce('_resetLayout', function() {
+          var drawer = this.drawer;
+          var contentContainer = this.$.contentContainer;
 
-        this._drawerPosition = this.narrow ? null : drawer.position;
-        if (this._drawerNeedsReset) {
+          if (this.narrow || !drawer) {
+            contentContainer.style.marginLeft = '';
+            contentContainer.style.marginRight = '';
+          } else {
+            var drawerWidth = drawer.getWidth();
+            if (drawer.position == 'right') {
+              contentContainer.style.marginLeft = '';
+              contentContainer.style.marginRight = drawerWidth + 'px';
+            } else {
+              contentContainer.style.marginLeft = drawerWidth + 'px';
+              contentContainer.style.marginRight = '';
+            }
+          }
+        });
+      },
+
+      _resetDrawerState: function() {
+        this.debounce('_resetDrawerState', function() {
+          var drawer = this.drawer;
+          if (!drawer) {
+            return;
+          }
+
           if (this.narrow) {
             drawer.opened = this.openedWhenNarrow;
             drawer.persistent = false;
           } else {
             drawer.opened = drawer.persistent = true;
           }
-          if (this._savedDrawerTransitionDuration) {
-            // Enable drawer transitions after app-drawer-layout sets the initial opened state.
-            Polymer.RenderStatus.afterNextRender(this, function() {
-              drawer.transitionDuration = this._savedDrawerTransitionDuration;
-              this._savedDrawerTransitionDuration = 0;
-            });
-          }
-          this._drawerNeedsReset = false;
-        }
+        });
       },
 
-      _narrowChanged: function() {
-        this._drawerNeedsReset = true;
-        this.resetLayout();
+      _narrowChanged: function(narrow) {
+        this.toggleClass('narrow', narrow, this.$.contentContainer);
+        this._resetDrawerState();
+        this.notifyResize();
       },
 
       _onQueryMatchesChanged: function(event) {
