@@ -16,33 +16,27 @@
     "url": "git://github.com/PolymerElements/iron-meta.git"
   },
   "dependencies": {
-    "polymer": "Polymer/polymer#1.9 - 2"
+    "polymer": "polymer/polymer#^2.0.0-rc.1"
   },
   "devDependencies": {
-    "paper-styles": "polymerelements/paper-styles#1 - 2",
+    "paper-styles": "polymerelements/paper-styles#2.0-preview",
     "test-fixture": "PolymerElements/test-fixture#^3.0.0-rc.1",
-    "web-component-tester": "^6.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0-prerelease.6",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.1"
   },
   "variants": {
     "1.x": {
       "dependencies": {
-        "polymer": "Polymer/polymer#^1.9"
+        "polymer": "polymer/polymer#^1.0.0"
       },
       "devDependencies": {
         "paper-styles": "polymerelements/paper-styles#^1.0.0",
         "test-fixture": "polymerelements/test-fixture#^1.0.0",
         "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
         "web-component-tester": "Polymer/web-component-tester#^4.0.0"
-      },
-      "resolutions": {
-        "webcomponentsjs": "^0.7"
       }
     }
   },
   "main": "iron-meta.html",
-  "ignore": [],
-  "resolutions": {
-    "webcomponentsjs": "^1.0.0"
-  }
+  "ignore": []
 }
