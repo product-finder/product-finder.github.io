@@ -37,15 +37,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-transform: uppercase;
         font-size: 24px;
       }
+      .label {
+        margin-bottom: -12px;
+      }
+      @media (max-width: 680px) {
+        paper-dropdown-menu {
+          display: block
+        }
+      }
     </style>
 
     <div class="card">
       <!--<div class="circle">1</div>-->
          <h1>Ink & Toner Finder</h1>
       <paper-input label="Search by cartridge or printer model"></paper-input>
-
-      <p>Or search by Printer Compatibility</p>
- 
+      
+      <p class="label">Or search by Printer Compatibility</p>
       <paper-dropdown-menu label="Brand" noink>
         <paper-listbox slot="dropdown-content">
           <paper-item>Brother</paper-item>
@@ -73,6 +80,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-item>DCP-350C</paper-item>
         </paper-listbox>
       </paper-dropdown-menu>
+
+      <br>
 
       <paper-button on-click="openToast">Find</paper-button>
       
