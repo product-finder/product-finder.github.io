@@ -19,19 +19,80 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+      paper-button {
+        background-color: #003b64;
+        color: #ffffff;
+      }
+      .toast-button {
+        background-color: transparent;
+        color: #eeff41;
+      }
+      h1 {
+        background: #003b64;
+        color: #fff;
+        margin: -16px;
+        margin-bottom: 0px;
+        padding: 10px 24px;
+        border-radius: 3px 3px 0 0;
+        text-transform: uppercase;
+        font-size: 24px;
+      }
     </style>
 
     <div class="card">
-      <div class="circle">2</div>
-      <h1>Component Two</h1>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
-      <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
+      <!--<div class="circle">1</div>-->
+         <h1>Appliance Finder</h1>
+      <paper-input label="Search by door width or appliance size"></paper-input>
+
+      <p>Or search by:</p>
+ 
+      <paper-dropdown-menu label="Width" noink>
+        <paper-listbox slot="dropdown-content" selected="0">
+          <paper-item>25cm</paper-item>
+          <paper-item>Canon</paper-item>
+          <paper-item>Dell</paper-item>
+          <paper-item>Epson</paper-item>
+          <paper-item>HP</paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
+ 
+      <paper-dropdown-menu label="Colour" noink>
+        <paper-listbox slot="dropdown-content">
+          <paper-item>Blue</paper-item>
+          <paper-item>HL Printers</paper-item>
+          <paper-item>Intellifax</paper-item>
+          <paper-item>MFC Multifunctional Printers</paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+      <paper-dropdown-menu label="Model" noink>
+        <paper-listbox slot="dropdown-content">
+          <paper-item>Fridgidaire</paper-item>
+          <paper-item>DCP-1200</paper-item>
+          <paper-item>DCP-1400</paper-item>
+          <paper-item>DCP-350C</paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+      <paper-button on-click="openToast">Find</paper-button>
+      
     </div>
+    <paper-toast id="toast" text="Finding compatible ink...">
+      <paper-button on-click="closeToast" class="toast-button">Cancel</paper-button>
+    </paper-toast>
   </template>
 
   <script>
     class MyView2 extends Polymer.Element {
       static get is() { return 'my-view2'; }
+      
+      openToast() {
+        this.$.toast.open();
+      }
+      closeToast() {
+        this.$.toast.close();
+      }
+
     }
 
     window.customElements.define(MyView2.is, MyView2);
