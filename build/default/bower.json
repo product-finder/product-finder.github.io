@@ -18,6 +18,7 @@
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#2.0-preview",
     "paper-listbox": "PolymerElements/paper-listbox#2.0-preview",
     "paper-item": "PolymerElements/paper-item#2.0-preview",
+    "paper-toast": "PolymerElements/paper-toast#2.0-preview",
     "neon-animation": "PolymerElements/neon-animation#2.0-preview",
     "polymer": "Polymer/polymer#^2.0.0-rc.3",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.7"

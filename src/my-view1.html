@@ -23,6 +23,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: #003b64;
         color: #ffffff;
       }
+      .toast-button {
+        background-color: transparent;
+        color: #eeff41;
+      }
+      h1 {
+        background: #003b64;
+        color: #fff;
+        margin: -16px;
+        margin-bottom: 0px;
+        padding: 10px 24px;
+        border-radius: 3px 3px 0 0;
+        text-transform: uppercase;
+        font-size: 24px;
+      }
     </style>
 
     <div class="card">
@@ -60,14 +74,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </paper-listbox>
       </paper-dropdown-menu>
 
-      <paper-button>Find</paper-button>
-
+      <paper-button on-click="openToast">Find</paper-button>
+      
     </div>
+    <paper-toast id="toast" text="Finding compatible ink...">
+      <paper-button on-click="closeToast" class="toast-button">Cancel</paper-button>
+    </paper-toast>
   </template>
 
   <script>
     class MyView1 extends Polymer.Element {
       static get is() { return 'my-view1'; }
+      
+      openToast() {
+        this.$.toast.open();
+      }
+      closeToast() {
+        this.$.toast.close();
+      }
+
     }
 
     window.customElements.define(MyView1.is, MyView1);
