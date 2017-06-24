@@ -45,6 +45,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           display: block
         }
       }
+      .flex-horizontal {
+        @apply --layout-horizontal;
+        @apply --layout-center;
+      }
+      .flexchild {
+        @apply --layout-flex;
+      }
     </style>
 
     <div class="card">
@@ -83,7 +90,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <br>
 
-      <paper-button on-click="openToast">Find</paper-button>
+      <div class="container flex-horizontal">
+        <div>
+          <paper-button on-click="openToast">Find</paper-button>
+        </div>
+        <div class="flexchild"></div>
+        <div>100 results</div>
+      </div>
       
     </div>
     <paper-toast id="toast" text="Finding compatible ink...">
